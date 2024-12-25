@@ -2,7 +2,9 @@
 
 use App\Models\Shop;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+uses(DatabaseTransactions::class);
 
 test("can admin login", function(){
     $user = User::factory()->create();
