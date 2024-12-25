@@ -13,7 +13,14 @@ class StoreController extends Controller
     {
         $data = $request->validated();
         Shop::create($data);
-        return view("shop.add-new-shop");
+        $countries = Country::all();
+        return view("shop.add-new-shop", compact("countries"));
+    }
+
+    public function create()
+    {
+        $countries = Country::all();
+        return view("shop.add-new-shop", compact("countries"));
     }
 
 }

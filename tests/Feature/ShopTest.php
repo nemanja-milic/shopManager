@@ -4,13 +4,24 @@ use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+test("can admin login", function(){
+    $user = User::factory()->create();
+
+    $response = $this->post("/login", [
+        "email" => $user->email,
+        "password" => $user->password,
+    ]);
+
+    $response->assertStatus(302);
+
+});
+
 test('admin can add shop', function () {
 
     $user = User::factory()->create([
         'is_admin' => true,
     ]);
 
-    // Authenticate the user
     $this->actingAs($user);
     $response = $this->post("/store/add", [
         "name" => "Simply shop",
