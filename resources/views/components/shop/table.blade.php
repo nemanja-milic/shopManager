@@ -41,9 +41,11 @@
                         <a href={{"/shop/edit/".$shop->id}} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                     </td>
                     <td class="px-6 py-4">
-                        <a
-                            shopId="{{$shop->id}}"
-                            href="#" class="delete-shop font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</a>
+                        <form action="{{ route('delete-shop', $shop->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this shop?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -51,34 +53,3 @@
     </table>
     {{ $shops->links() }}
 </div>
-@push('scripts')
-    <script>
-
-        (function(){
-            const deleteLinks = document.querySelectorAll('.delete-shop');
-
-            deleteLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-
-                    const url = `/shop/delete/${this.getAttribute("shopId")}`;
-
-                    if (confirm("Are you sure you want to delete this shop?")) {
-                        fetch(url, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                'Content-Type': 'application/json',
-                            },
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('There was an error deleting the shop.');
-                        });
-                    }
-                });
-            });
-        })()
-
-    </script>
-@endpush
