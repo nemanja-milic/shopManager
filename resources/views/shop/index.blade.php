@@ -17,5 +17,4 @@
             <x-warning-alert msg="There is not shops" />
         @endif
     </div>
-
 </x-layout>

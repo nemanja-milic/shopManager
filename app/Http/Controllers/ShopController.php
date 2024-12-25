@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreNewShopRequest;
 use App\Models\Country;
 use App\Models\Shop;
+use App\Models\ShopDeleted;
 use Illuminate\Contracts\View\View;
 
 class ShopController extends Controller
@@ -27,6 +28,19 @@ class ShopController extends Controller
     {
         $countries = Country::all();
         return view("shop.add-new-shop", compact("countries"));
+    }
+
+    public function delete(Shop $shop)
+    {
+        ShopDeleted::create([
+            "shop_id" => $shop->id,
+            "name" => $shop->name,
+            "country_id" => $shop->country_id,
+            "city" => $shop->city,
+            "street" => $shop->street,
+        ]);
+        $shop->delete();
+        return redirect()->route("shops");
     }
 
 }

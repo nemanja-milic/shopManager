@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'My Application')</title>
     <link rel="stylesheet" href="../../css/app.css">
     @vite(['resources/css/app.css'])
 </head>
-<body>
+<body class="overflow-x-hidden">
 
     <main class="max-w-4xl mx-auto min-h-screen">
         @if (!request()->routeIs('login'))
@@ -16,5 +17,6 @@
         {{ $slot }}
     </main>
 
+    @stack('scripts')
 </body>
 </html>

@@ -1,0 +1,9 @@
+.alert-msg{
+    position: absolute;
+    top: 5%;
+    right: -100%;
+    transition: all 0.4s ease-in-out;
+}
+.alert-msg.active{
+    right: 2%;
+}
