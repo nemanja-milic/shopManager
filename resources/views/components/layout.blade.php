@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <main class="max-w-4xl mx-auto pt-4  min-h-screen">
+    <main class="max-w-4xl mx-auto min-h-screen">
         @if (!request()->routeIs('login'))
             <x-header />
         @endif
