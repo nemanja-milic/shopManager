@@ -5,6 +5,7 @@
     street: "Mite Ruzica"
 
 2.Administrator can manage working hours for shop
+    For now i can implement these as button in table which will trigger the modal to show data
     Monday-Friday: 09:00 - 17:00
     Saturday: 10:00 - 15:00
     Sunday: Closed

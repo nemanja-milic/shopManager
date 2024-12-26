@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../css/app.css">
     @vite(['resources/css/app.css'])
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden bg-white text-black dark:bg-black dark:text-white">
 
     <main class="max-w-4xl mx-auto min-h-screen">
         @if (!request()->routeIs('login'))
