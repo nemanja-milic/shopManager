@@ -1,2 +1,4 @@
 import "./bootstrap"
-console.log("nemanja")
+import DarkLightSwitcher from "./components/DarkLightSwitcher"
+
+new DarkLightSwitcher();
