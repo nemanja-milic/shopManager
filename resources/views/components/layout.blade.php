@@ -17,6 +17,6 @@
         {{ $slot }}
     </main>
 
-    @stack('scripts')
+    @vite(["resources/ts/app.ts"])
 </body>
 </html>
