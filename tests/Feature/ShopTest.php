@@ -7,18 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 uses(DatabaseTransactions::class);
 
-test("can admin login", function(){
-    $user = User::factory()->create();
-
-    $response = $this->post("/login", [
-        "email" => $user->email,
-        "password" => $user->password,
-    ]);
-
-    $response->assertStatus(302);
-
-});
-
 test('admin can add shop', function () {
 
     $user = User::factory()->create([
@@ -39,9 +27,11 @@ test('admin can add shop', function () {
     expect(
         Shop::where("name", "Simply shop")->exists()
     )->toBe(true);
+
 });
 
 test("admin can delete shop", function(){
+
     $user = User::factory()->create([
         'is_admin' => true,
     ]);
@@ -64,4 +54,56 @@ test("admin can delete shop", function(){
     expect(
         ShopDeleted::where("shop_id", $shop->id)->exists()
     )->toBe(true, "deleted shop is not deleted_shops");
+});
+
+// test("can admin on click edit see edit form with data filled", function(){
+
+//     $user = User::factory()->create([
+//         'is_admin' => true,
+//     ]);
+
+//     $this->actingAs($user);
+//     $shop = Shop::create([
+//         "name" => "Simply shop",
+//         "country" => "Serbia",
+//         "city" => "Belgrade",
+//         "street" => "Mite Ruzica 9",
+//         "country_id" => 1,
+//     ]);
+//     // make simple shop
+//     // make get request to the shop/edit/shop->id
+//     // see is there a form with data filled
+//     // see does the button trigger the shop edit path
+//     // do i get redirected
+
+// });
+
+test("can admin edit shop", function(){
+
+    $user = User::factory()->create([
+        'is_admin' => true,
+    ]);
+
+    $this->actingAs($user);
+    $shop = Shop::create([
+        "name" => "Simply shop",
+        "country" => "Serbia",
+        "city" => "Belgrade",
+        "street" => "Mite Ruzica 9",
+        "country_id" => 1,
+    ]);
+
+    $response = $this->put("/shop/edit/$shop->id", [
+        "name" => "Simply shop",
+        "country" => "Serbia",
+        "city" => "Belgrade",
+        "street" => "Lajkovacka 11",
+        "country_id" => 1,
+    ]);
+
+    $response->assertStatus(302);
+
+    $updatedShop = Shop::where("id", $shop->id)->first();
+    expect($updatedShop->street)->toBe("Lajkovacka 11");
+
 });

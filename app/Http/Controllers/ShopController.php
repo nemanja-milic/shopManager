@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BasicShopRequest;
 use App\Http\Requests\StoreNewShopRequest;
 use App\Models\Country;
 use App\Models\Shop;
@@ -17,7 +18,7 @@ class ShopController extends Controller
         return view("shop.index", compact("shops"));
     }
 
-    public function store(StoreNewShopRequest $request)
+    public function store(BasicShopRequest $request)
     {
         $data = $request->validated();
         Shop::create($data);
@@ -41,6 +42,25 @@ class ShopController extends Controller
         ]);
         $shop->delete();
         return redirect()->route("shops");
+    }
+
+    public function update(Shop $shop, BasicShopRequest $request)
+    {
+        $data = $request->validated();
+        $shop->update($data);
+        return redirect()->route("shops");
+    }
+
+    public function edit(Shop $shop)
+    {
+        if(empty($shop)) {
+            abort(404);
+        }
+
+        $countries = Country::all();
+
+        return view("shop.edit", compact("countries", "shop"));
+
     }
 
 }
