@@ -104,9 +104,3 @@ test("can admin edit shop", function(){
 
 });
 
-// helpers function
-function makeAdmin() {
-    return User::factory()->create([
-        'role_id' => (Role::where("name", RolesEnums::ADMIN->value)->first())->id,
-    ]);
-}

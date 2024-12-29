@@ -41,7 +41,9 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function makeAdmin()
 {
-    // ..
+    return \App\Models\User::factory()->create([
+        'role_id' => \App\Models\Role::where('name', \App\Enums\RolesEnums::ADMIN->value)->first()->id,
+    ]);
 }
