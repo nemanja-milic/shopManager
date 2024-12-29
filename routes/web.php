@@ -18,8 +18,7 @@ Route::middleware("auth")->group(function(){
     Route::delete('/shop/delete/{shop}', [ShopController::class, "delete"])->name("delete-shop");
     Route::put('/shop/edit/{shop}', [ShopController::class, "update"])->name("update-shop");
     Route::get('/shop/edit/{shop}', [ShopController::class, "edit"])->name("edit-shop");
-
-    /* Manager can add working time */
-
     /* Employee can see his working time */
+    // Employee can login to his account and see his working schedule
+    Route::view("/schedule", "employee");
 });
