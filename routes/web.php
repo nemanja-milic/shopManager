@@ -20,5 +20,4 @@ Route::middleware("auth")->group(function(){
     Route::get('/shop/edit/{shop}', [ShopController::class, "edit"])->name("edit-shop");
     /* Employee can see his working time */
     // Employee can login to his account and see his working schedule
-    Route::view("/schedule", "employee");
 });
