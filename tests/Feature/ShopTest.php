@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\RolesEnums;
+use App\Models\Role;
 use App\Models\Shop;
 use App\Models\ShopDeleted;
 use App\Models\User;
@@ -9,9 +11,7 @@ uses(DatabaseTransactions::class);
 
 test('admin can add shop', function () {
 
-    $user = User::factory()->create([
-        'is_admin' => true,
-    ]);
+    $user = makeAdmin();
 
     $this->actingAs($user);
     $response = $this->post("/shop/add", [
@@ -32,9 +32,7 @@ test('admin can add shop', function () {
 
 test("admin can delete shop", function(){
 
-    $user = User::factory()->create([
-        'is_admin' => true,
-    ]);
+    $user = makeAdmin();
 
     $this->actingAs($user);
     $shop = Shop::create([
@@ -80,9 +78,7 @@ test("admin can delete shop", function(){
 
 test("can admin edit shop", function(){
 
-    $user = User::factory()->create([
-        'is_admin' => true,
-    ]);
+    $user = makeAdmin();
 
     $this->actingAs($user);
     $shop = Shop::create([
@@ -107,3 +103,10 @@ test("can admin edit shop", function(){
     expect($updatedShop->street)->toBe("Lajkovacka 11");
 
 });
+
+// helpers function
+function makeAdmin() {
+    return User::factory()->create([
+        'role_id' => (Role::where("name", RolesEnums::ADMIN->value)->first())->id,
+    ]);
+}
