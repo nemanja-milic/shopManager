@@ -5,6 +5,7 @@ use App\Models\Role;
 use App\Models\Shop;
 use App\Models\ShopDeleted;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 uses(DatabaseTransactions::class);
@@ -101,6 +102,29 @@ test("can admin edit shop", function(){
 
     $updatedShop = Shop::where("id", $shop->id)->first();
     expect($updatedShop->street)->toBe("Lajkovacka 11");
+
+});
+
+test("can admin add working time for the shop", function(){
+
+    $shop = Shop::create();
+    WorkingTimeShop::create([
+        "id_shop" => $shop->id,
+        "monday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
+        "tuesday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
+        "wednesday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
+        "thursday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
+        "friday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
+        "saturday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
+        "sunday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
+        "exceptions" => [
+            [
+                "start_time" => null,
+                "end_time" => null,
+                "reason" => "Christmas"
+            ],
+        ],
+    ]);
 
 });
 
