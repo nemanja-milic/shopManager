@@ -21,49 +21,13 @@
         <div class="text-center font-semibold text-sm text-gray-700">Sun</div>
 
         <!-- Calendar Days -->
-        <div class="text-center p-2 text-white-500 bg-green-700 dark:bg-green-900">
+        {{-- <div class="text-center p-2 text-white-500 bg-green-700 dark:bg-green-900">
             <h3 class="text-white">29</h3>
             <h4 class="text-white">08:00-16:00</h4>
-        </div>
-        <div class="text-center p-2 text-white-500 bg-red-700 dark:bg-red-900">
-            <h3 class="text-white">30</h3>
-        </div>
-        <div class="text-center p-2 text-white-900">31</div>
-        <div class="text-center p-2 text-white-900">1</div>
-        <div class="text-center p-2 text-white-900">2</div>
-        <div class="text-center p-2 text-white-900">3</div>
-        <div class="text-center p-2 text-white-900">4</div>
+        </div> --}}
+        @for ($i = 1; $i <= $daysInMonth; $i++)
+            <div class="text-center p-2 text-white-900 cursor-pointer">{{ $i }}</div>
+        @endfor
 
-        <div class="text-center p-2 text-white-900">5</div>
-        <div class="text-center p-2 text-white-900">6</div>
-        <div class="text-center p-2 text-white-900">7</div>
-        <div class="text-center p-2 text-white-900">8</div>
-        <div class="text-center p-2 text-white-900">9</div>
-        <div class="text-center p-2 text-white-900">10</div>
-        <div class="text-center p-2 text-white-900">11</div>
-
-        <div class="text-center p-2 text-white-900">12</div>
-        <div class="text-center p-2 text-white-900">13</div>
-        <div class="text-center p-2 text-white-900">14</div>
-        <div class="text-center p-2 text-white-900">15</div>
-        <div class="text-center p-2 text-white-900">16</div>
-        <div class="text-center p-2 text-white-900">17</div>
-        <div class="text-center p-2 text-white-900">18</div>
-
-        <div class="text-center p-2 text-white-900">19</div>
-        <div class="text-center p-2 text-white-900">20</div>
-        <div class="text-center p-2 text-white-900">21</div>
-        <div class="text-center p-2 text-white-900">22</div>
-        <div class="text-center p-2 text-white-900">23</div>
-        <div class="text-center p-2 text-white-900">24</div>
-        <div class="text-center p-2 text-white-900">25</div>
-
-        <div class="text-center p-2 text-white-900">26</div>
-        <div class="text-center p-2 text-white-900">27</div>
-        <div class="text-center p-2 text-white-900">28</div>
-        <div class="text-center p-2 text-white-900">29</div>
-        <div class="text-center p-2 text-white-900">30</div>
-        <div class="text-center p-2 text-white-900">31</div>
-        <div class="text-center p-2 text-white-900"></div>
     </div>
 </div>
