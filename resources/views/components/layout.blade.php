@@ -17,5 +17,6 @@
     </main>
 
     @vite(["resources/ts/app.ts"])
+    @stack('pageTs')
 </body>
 </html>

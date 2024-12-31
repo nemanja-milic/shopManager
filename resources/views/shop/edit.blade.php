@@ -1,10 +1,13 @@
 <x-layout>
     <div class="grid place-items-end">
-        <button class="btn-primary mt-5 ml-auto">
+        <button
+            id="button-shop"
+            class="btn-primary mt-5 ml-auto">
             Edit
         </button>
     </div>
     <form
+        id="form-shop"
         action={{"/shop/edit/".$shop->id}}
         class="mx-auto mt-5 grid" method="POST">
         @csrf
@@ -44,4 +47,7 @@
         </div>
         <x-shop.working-time/>
     </form>
+    @push('pageTs')
+        @vite(['resources/ts/pages/editShop.ts'])
+    @endpush
 </x-layout>
