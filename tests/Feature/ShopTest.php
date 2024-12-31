@@ -1,12 +1,10 @@
 <?php
 
-use App\Enums\RolesEnums;
-use App\Models\Role;
 use App\Models\Shop;
 use App\Models\ShopDeleted;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\WorkingTimeShop;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Enums\DaysInWeek;
 
 uses(DatabaseTransactions::class);
 
@@ -55,28 +53,6 @@ test("admin can delete shop", function(){
     )->toBe(true, "deleted shop is not deleted_shops");
 });
 
-// test("can admin on click edit see edit form with data filled", function(){
-
-//     $user = User::factory()->create([
-//         'is_admin' => true,
-//     ]);
-
-//     $this->actingAs($user);
-//     $shop = Shop::create([
-//         "name" => "Simply shop",
-//         "country" => "Serbia",
-//         "city" => "Belgrade",
-//         "street" => "Mite Ruzica 9",
-//         "country_id" => 1,
-//     ]);
-//     // make simple shop
-//     // make get request to the shop/edit/shop->id
-//     // see is there a form with data filled
-//     // see does the button trigger the shop edit path
-//     // do i get redirected
-
-// });
-
 test("can admin edit shop", function(){
 
     $user = makeAdmin();
@@ -107,24 +83,65 @@ test("can admin edit shop", function(){
 
 test("can admin add working time for the shop", function(){
 
-    $shop = Shop::create();
-    WorkingTimeShop::create([
-        "id_shop" => $shop->id,
-        "monday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
-        "tuesday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
-        "wednesday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
-        "thursday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
-        "friday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
-        "saturday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
-        "sunday" => Carbon::createFromTime(8, 0, 0) . "-" . Carbon::createFromTime(17, 0, 0),
-        "exceptions" => [
-            [
-                "start_time" => null,
-                "end_time" => null,
-                "reason" => "Christmas"
-            ],
+    $shop = Shop::factory()->create();
+
+    $workingTimes = [
+        [
+            'shop_id'      => $shop->id,
+            'day_of_week'  => DaysInWeek::MONDAY->name,
+            'opening_time' => '09:00:00',
+            'closing_time' => '17:00:00',
         ],
-    ]);
+        [
+            'shop_id'      => $shop->id,
+            'day_of_week'  => DaysInWeek::TUESDAY->name,
+            'opening_time' => '09:00:00',
+            'closing_time' => '17:00:00',
+        ],
+        [
+            'shop_id'      => $shop->id,
+            'day_of_week'  => DaysInWeek::WEDNESDAY->name,
+            'opening_time' => '09:00:00',
+            'closing_time' => '17:00:00',
+        ],
+        [
+            'shop_id'      => $shop->id,
+            'day_of_week'  => DaysInWeek::THURSDAY->name,
+            'opening_time' => '09:00:00',
+            'closing_time' => '17:00:00',
+        ],
+        [
+            'shop_id'      => $shop->id,
+            'day_of_week'  => DaysInWeek::FRIDAY->name,
+            'opening_time' => '09:00:00',
+            'closing_time' => '17:00:00',
+        ],
+        [
+            'shop_id'      => $shop->id,
+            'day_of_week'  => DaysInWeek::SATURDAY->name,
+            'opening_time' => '10:00:00',
+            'closing_time' => '14:00:00',
+        ],
+        [
+            'shop_id'      => $shop->id,
+            'day_of_week'  => DaysInWeek::SUNDAY->name,
+            'opening_time' => '10:00:00',
+            'closing_time' => '14:00:00',
+        ]
+    ];
+
+    foreach ($workingTimes as $workingTime) {
+        WorkingTimeShop::create($workingTime);
+    }
+
+    foreach ($workingTimes as $workingTime) {
+        $this->assertDatabaseHas('working_time_shops', [
+            'shop_id'      => $workingTime['shop_id'],
+            'day_of_week'  => $workingTime['day_of_week'],
+            'opening_time' => $workingTime['opening_time'],
+            'closing_time' => $workingTime['closing_time'],
+        ]);
+    }
 
 });
 
