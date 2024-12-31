@@ -45,7 +45,12 @@
                 </select>
             </div>
         </div>
-        <x-shop.working-time/>
+        @if ($workingTimeForShop->isEmpty())
+            <x-shop.add-working-time/>
+        @else
+            <x-shop.edit-working-time :workingTimeForShop="$workingTimeForShop" />
+        @endif
+
     </form>
     @push('pageTs')
         @vite(['resources/ts/pages/editShop.ts'])
