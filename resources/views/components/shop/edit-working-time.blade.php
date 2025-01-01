@@ -9,14 +9,14 @@
                         name={{ strtolower($workingTime->day_of_week) . "_opening_time" }}
                         type="time"
                         class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
-                        value={{"09:00"}}
+                        value="{{ $workingTime->opening_time }}"
                     />
                     <span class="text-gray-700 dark:text-white">-</span>
                     <input
                         name={{ strtolower($workingTime->day_of_week) . "_closing_time" }}
                         type="time"
                         class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
-                        value="17:00"
+                        value="{{ $workingTime->closing_time }}"
                     />
                 </div>
             </div>

@@ -5,6 +5,7 @@ use App\Models\ShopDeleted;
 use App\Models\WorkingTimeShop;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Enums\DaysInWeek;
+use Carbon\Carbon;
 
 uses(DatabaseTransactions::class);
 
@@ -53,7 +54,7 @@ test("admin can delete shop", function(){
     )->toBe(true, "deleted shop is not deleted_shops");
 });
 
-test("can admin edit shop", function(){
+test("can admin edit shop info", function(){
 
     $user = makeAdmin();
 
@@ -65,6 +66,7 @@ test("can admin edit shop", function(){
         "street" => "Mite Ruzica 9",
         "country_id" => 1,
     ]);
+    WorkingTimeShop::factory()->create(["shop_id" => $shop->id]);
 
     $response = $this->put("/shop/edit/$shop->id", [
         "name" => "Simply shop",
@@ -72,13 +74,19 @@ test("can admin edit shop", function(){
         "city" => "Belgrade",
         "street" => "Lajkovacka 11",
         "country_id" => 1,
+        "monday_opening_time" => "09:00",
+        "monday_closing_time" => "17:00"
     ]);
 
     $response->assertStatus(302);
-
+    // change this with this->assertDatabase has
     $updatedShop = Shop::where("id", $shop->id)->first();
     expect($updatedShop->street)->toBe("Lajkovacka 11");
 
+    // expect that
+    expect(
+        WorkingTimeShop::where("shop_id", $shop->id)->where("day_of_week", DaysInWeek::MONDAY->name)->value("opening_time")
+    )->toBe("09:00");
 });
 
 test("can admin add working time for the shop", function(){
@@ -144,4 +152,3 @@ test("can admin add working time for the shop", function(){
     }
 
 });
-
