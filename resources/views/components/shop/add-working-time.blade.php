@@ -1,4 +1,6 @@
-<div class="max-w-full mx-auto bg-gray-50 dark:bg-gray-800 shadow-md rounded-md p-4">
+<div
+    id="working-time"
+    class="max-w-full mx-auto bg-gray-50 dark:bg-gray-800 shadow-md rounded-md p-4">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-white text-center mb-4">Weekly Schedule</h2>
     <div class="flex flex-wrap justify-between gap-3">
         <div class="flex flex-col items-center bg-white dark:bg-gray-700 shadow p-3 rounded-md w-1/7">
