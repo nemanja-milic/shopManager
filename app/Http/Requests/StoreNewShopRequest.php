@@ -16,8 +16,9 @@ class StoreNewShopRequest extends FormRequest
     public function rules(): array
     {
         return array_merge(
-            (new BasicShopRequest())->rules(),
-            (new UpdateWorkingTimeRequest())->rules()
+            (new BasicShopRequest($this->all()))->rules(),
+            // (new UpdateWorkingTimeRequest($this->all()))->rules(),
+            (new WorkingTimeExceptionRequest($this->all()))->rules()
         );
     }
 }

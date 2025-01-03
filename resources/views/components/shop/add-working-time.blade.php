@@ -7,12 +7,14 @@
             <span class="font-medium text-gray-700 dark:text-white mb-2">Monday</span>
             <div class="flex items-center gap-2">
                 <input
+                    value="{{ old("monday_opening_time") }}"
                     name="monday_opening_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
                 />
                 <span class="text-gray-700 dark:text-white">-</span>
                 <input
+                    value="{{ old("monday_closing_time") }}"
                     name = "monday_closing_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
@@ -23,12 +25,14 @@
             <span class="font-medium text-gray-700 dark:text-white mb-2">Tuesday</span>
             <div class="flex items-center gap-2">
                 <input
+                    value="{{ old("tuesday_opening_time") }}"
                     name="tuesday_opening_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
                 />
                 <span class="text-gray-700 dark:text-white">-</span>
                 <input
+                    value="{{ old("tuesday_closing_time") }}"
                     name = "tuesday_closing_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
@@ -39,12 +43,14 @@
             <span class="font-medium text-gray-700 dark:text-white mb-2">Wednesday</span>
             <div class="flex items-center gap-2">
                 <input
+                    value="{{ old("wednesday_opening_time") }}"
                     name="wednesday_opening_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
                 />
                 <span class="text-gray-700 dark:text-white">-</span>
                 <input
+                    value="{{ old("wednesday_closing_time") }}"
                     name = "wednesday_closing_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
@@ -55,12 +61,14 @@
             <span class="font-medium text-gray-700 dark:text-white mb-2">Thursday</span>
             <div class="flex items-center gap-2">
                 <input
+                    value="{{ old("thursday_opening_time") }}"
                     name="thursday_opening_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
                 />
                 <span class="text-gray-700 dark:text-white">-</span>
                 <input
+                    value="{{ old("thursday_closing_time") }}"
                     name = "thursday_closing_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
@@ -71,12 +79,14 @@
             <span class="font-medium text-gray-700 dark:text-white mb-2">Friday</span>
             <div class="flex items-center gap-2">
                 <input
+                    value="{{ old("friday_opening_time") }}"
                     name="friday_opening_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
                 />
                 <span class="text-gray-700 dark:text-white">-</span>
                 <input
+                    value="{{ old("friday_closing_time") }}"
                     name = "friday_closing_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
@@ -87,12 +97,14 @@
             <span class="font-medium text-gray-700 dark:text-white mb-2">Saturday</span>
             <div class="flex items-center gap-2">
                 <input
+                    value="{{ old("saturday_opening_time") }}"
                     name="saturday_opening_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
                 />
                 <span class="text-gray-700 dark:text-white">-</span>
                 <input
+                    value="{{ old("saturday_closing_time") }}"
                     name = "saturday_closing_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
@@ -103,12 +115,14 @@
             <span class="font-medium text-gray-700 dark:text-white mb-2">Sunday</span>
             <div class="flex items-center gap-2">
                 <input
+                    value="{{ old("sunday_opening_time") }}"
                     name="sunday_opening_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"
                 />
                 <span class="text-gray-700 dark:text-white">-</span>
                 <input
+                    value="{{ old("sunday_closing_time") }}"
                     name = "sunday_closing_time"
                     type="time"
                     class="border border-gray-300 dark:border-gray-600 rounded-md p-1 text-gray-700 dark:text-white bg-gray-50 dark:bg-gray-800 focus:ring focus:ring-blue-300 dark:focus:ring-blue-500"

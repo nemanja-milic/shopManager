@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\Shop;
 use App\Models\ShopDeleted;
 use App\Models\WorkingTimeShop;
+use App\Models\WorkingTimeShopException;
 use App\Services\WorkingTimeShopService;
 use Illuminate\Contracts\View\View;
 
@@ -27,13 +28,18 @@ class ShopController extends Controller
         $data = $request->validated();
         $shop = Shop::create($data);
         $workingTimeForShopService->addWorkingTimeForShop($shop, $data);
+        if($data["reason"]) {
+            $data["shop_id"] = $shop->id;
+            $data["is_working"] = $data["is_working"] === "false" ? 0 : 1;
+            WorkingTimeShopException::create($data);
+        }
         return redirect()->route("shops");
     }
 
     public function create()
     {
         $countries = Country::all();
-        return view("shop.add-new-shop", compact("countries"));
+        return view("shop.add", compact("countries"));
     }
 
     public function delete(Shop $shop)
