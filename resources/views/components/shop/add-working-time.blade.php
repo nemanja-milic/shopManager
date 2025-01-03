@@ -1,5 +1,5 @@
 <div
-    id="working-time"
+    id="working_time"
     class="max-w-full mx-auto bg-gray-50 dark:bg-gray-800 shadow-md rounded-md p-4">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-white text-center mb-4">Weekly Schedule</h2>
     <div class="flex flex-wrap justify-between gap-3">

@@ -35,7 +35,7 @@ export default class ShopForm
 
     collectTimeInputs() :HTMLInputElement[]
     {
-        const inputs = document.querySelectorAll<HTMLInputElement>("#working-time input");
+        const inputs = document.querySelectorAll<HTMLInputElement>("#working_time input");
 
         if (inputs.length > 0) {
             return Array.from(inputs);

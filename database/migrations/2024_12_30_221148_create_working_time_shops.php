@@ -13,8 +13,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("shop_id");
             $table->string("day_of_week");
-            $table->time("opening_time");
-            $table->time("closing_time");
+            $table->time("opening_time")->nullable();
+            $table->time("closing_time")->nullable();
             $table->timestamps();
 
             $table->foreign("shop_id")->on("shops")->references("id");

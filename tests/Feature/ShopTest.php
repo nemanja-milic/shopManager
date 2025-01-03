@@ -79,7 +79,6 @@ test("can admin edit shop info", function(){
     ]);
 
     $response->assertStatus(302);
-    // change this with this->assertDatabase has
     $updatedShop = Shop::where("id", $shop->id)->first();
     expect($updatedShop->street)->toBe("Lajkovacka 11");
 

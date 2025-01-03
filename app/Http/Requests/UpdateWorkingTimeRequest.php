@@ -13,28 +13,22 @@ class UpdateWorkingTimeRequest extends FormRequest
 
     public function rules(): array
     {
-        logger($this->monday_opening_time);
-        return [
-            "monday_opening_time" => ["nullable", "date_format:H:i:s"],
-            "monday_closing_time" => ["nullable", "date_format:H:i:s"],
+        return collect(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])
+        ->flatMap(function ($day) {
+            return [
+                "{$day}_opening_time" => [
+                    "nullable",
+                    "date_format:H:i:s",
+                    "required_with:{$day}_closing_time",
+                    "before:{$day}_closing_time",
+                ],
+                "{$day}_closing_time" => [
+                    "nullable",
+                    "date_format:H:i:s",
+                    "required_with:{$day}_opening_time",
+                ],
+            ];
+        })->toArray();
 
-            "tuesday_opening_time" => ["nullable", "date_format:H:i:s"],
-            "tuesday_closing_time" => ["nullable", "date_format:H:i:s"],
-
-            "wednesday_opening_time" => ["nullable", "date_format:H:i:s"],
-            "wednesday_closing_time" => ["nullable", "date_format:H:i:s"],
-
-            "thursday_opening_time" => ["nullable", "date_format:H:i:s"],
-            "thursday_closing_time" => ["nullable", "date_format:H:i:s"],
-
-            "friday_opening_time" => ["nullable", "date_format:H:i:s"],
-            "friday_closing_time" => ["nullable", "date_format:H:i:s"],
-
-            "saturday_opening_time" => ["nullable", "date_format:H:i:s"],
-            "saturday_closing_time" => ["nullable", "date_format:H:i:s"],
-
-            "sunday_opening_time" => ["nullable", "date_format:H:i:s"],
-            "sunday_closing_time" => ["nullable", "date_format:H:i:s"],
-        ];
     }
 }
