@@ -3,7 +3,7 @@
         <button
             id="button-shop"
             class="btn-primary mt-5 ml-auto">
-            Edit
+            Add
         </button>
     </div>
     <form
