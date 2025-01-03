@@ -61,7 +61,6 @@ test("can admin edit shop info", function(){
     $this->actingAs($user);
     $shop = Shop::create([
         "name" => "Simply shop",
-        "country" => "Serbia",
         "city" => "Belgrade",
         "street" => "Mite Ruzica 9",
         "country_id" => 1,
@@ -69,13 +68,12 @@ test("can admin edit shop info", function(){
     WorkingTimeShop::factory()->create(["shop_id" => $shop->id]);
 
     $response = $this->put("/shop/edit/$shop->id", [
-        "name" => "Simply shop",
-        "country" => "Serbia",
+        "name" => "Simply shop123",
         "city" => "Belgrade",
         "street" => "Lajkovacka 11",
         "country_id" => 1,
-        "monday_opening_time" => "09:00",
-        "monday_closing_time" => "17:00"
+        "monday_opening_time" => "09:00:00",
+        "monday_closing_time" => "17:00:00"
     ]);
 
     $response->assertStatus(302);
@@ -85,7 +83,7 @@ test("can admin edit shop info", function(){
     // expect that
     expect(
         WorkingTimeShop::where("shop_id", $shop->id)->where("day_of_week", DaysInWeek::MONDAY->name)->value("opening_time")
-    )->toBe("09:00");
+    )->toBe("09:00:00");
 });
 
 test("can admin add working time for the shop", function(){
