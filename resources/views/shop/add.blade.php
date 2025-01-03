@@ -44,9 +44,9 @@
             </div>
         </div>
         <x-shop.add-working-time/>
-
+        <x-shop.exceptions-working-time/>
     </form>
     @push('pageTs')
-        @vite(['resources/ts/pages/editShop.ts'])
+        @vite(['resources/ts/pages/addShop.ts'])
     @endpush
 </x-layout>
