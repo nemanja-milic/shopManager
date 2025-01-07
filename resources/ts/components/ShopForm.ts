@@ -7,12 +7,21 @@ export default class ShopForm
     {
         this.button = this.collectBtn();
         this.form = this.collectForm();
-        this.button.addEventListener("click", () => {
-            // collect all inputs
-            let inputs = this.collectTimeInputs();
-            inputs.forEach(input => input.value = input.value + ":00")
-            this.form.submit()
-        })
+        this.button.addEventListener("click", () => this.submitForm())
+    }
+
+    submitForm() {
+        // collect all inputs
+        let inputs = this.collectTimeInputs();
+        inputs.forEach(input => input.value = input.value + ":00");
+
+        let collectIsWorkingInputs = this.collectIsWorkingElements();
+        let hiddenIsWorkingField = document.createElement("input");
+        hiddenIsWorkingField.name = "is_working[]";
+        hiddenIsWorkingField.value = this.generateIsWorkingField(collectIsWorkingInputs).join(",");
+        this.form.appendChild(hiddenIsWorkingField);
+
+        this.form.submit()
     }
 
     collectBtn() :HTMLButtonElement
@@ -22,6 +31,20 @@ export default class ShopForm
             return btn;
         }
         throw new Error("Button is not find");
+    }
+
+    generateIsWorkingField(collectIsWorkingInputs :HTMLInputElement[]) :Boolean[] {
+
+        let returnArray = [];
+        for(let i = 0; i<collectIsWorkingInputs.length; i++) {
+            if(collectIsWorkingInputs[i].checked && collectIsWorkingInputs[i].getAttribute("data-working") === "true") {
+                returnArray.push(true);
+            }
+            else if(collectIsWorkingInputs[i].checked && collectIsWorkingInputs[i].getAttribute("data-working") === "false") {
+                returnArray.push(false);
+            }
+        }
+        return returnArray
     }
 
     collectForm() :HTMLFormElement
@@ -44,4 +67,15 @@ export default class ShopForm
 
         throw new Error("Working Inputs or Exceptions inputs are not collected");
     }
+
+    collectIsWorkingElements() :HTMLInputElement[] {
+
+        let collectIsWorkingInputs = document.querySelectorAll<HTMLInputElement>("#exceptions input[type=radio]");
+
+        if(collectIsWorkingInputs.length > 0) {
+            return Array.from([...collectIsWorkingInputs]);
+        }
+        throw new Error("Is working element are not find");
+    }
+
 }

@@ -55,7 +55,6 @@ export default class ExceptionsAddDelete
                 <div class="flex justify-between">
                     <div class="flex items-center">
                         <input
-                            name="is_working[]"
                             data-working="true"
                             id="is_working_yes"
                             type="radio"
@@ -65,7 +64,6 @@ export default class ExceptionsAddDelete
                     </div>
                     <div class="flex items-center">
                         <input
-                            name="is_working[]"
                             id="is_working_no"
                             data-working="false"
                             type="radio"

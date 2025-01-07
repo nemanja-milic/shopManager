@@ -28,7 +28,6 @@
                 <div class="flex justify-between">
                     <div class="flex items-center">
                         <input
-                            name="is_working[{{$exceptionTime->id}}]"
                             data-working=true
                             type="radio"
                             @if ($exceptionTime->is_working)
@@ -40,7 +39,6 @@
                     </div>
                     <div class="flex items-center">
                         <input
-                            name="is_working[{{$exceptionTime->id}}]"
                             data-working=false
                             type="radio"
                             @if (!$exceptionTime->is_working)
