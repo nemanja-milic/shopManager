@@ -35,12 +35,13 @@ export default class ShopForm
 
     collectTimeInputs() :HTMLInputElement[]
     {
-        const inputs = document.querySelectorAll<HTMLInputElement>("#working_time input");
+        const workingTimeInputs = document.querySelectorAll<HTMLInputElement>("#working_time input");
+        const exceptionsTimeInputs = document.querySelectorAll<HTMLInputElement>("#exceptions input[type=time]");
 
-        if (inputs.length > 0) {
-            return Array.from(inputs);
+        if (workingTimeInputs.length > 0 && exceptionsTimeInputs.length >0) {
+            return Array.from([...workingTimeInputs, ...exceptionsTimeInputs]);
         }
 
-        throw new Error("Time Inputs are not collected");
+        throw new Error("Working Inputs or Exceptions inputs are not collected");
     }
 }

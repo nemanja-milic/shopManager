@@ -4,10 +4,10 @@ export default class ExceptionsTimeSwitcher {
     protected noRadioButton :HTMLInputElement;
     protected timeDiv :HTMLDivElement;
 
-    constructor() {
+    constructor(exceptionBlock :HTMLDivElement) {
 
-        [this.yesRadioButton, this.noRadioButton] = this.collectRadioButtons();
-        this.timeDiv = this.collectTimeDiv();
+        [this.yesRadioButton, this.noRadioButton] = this.collectRadioButtons(exceptionBlock);
+        this.timeDiv = this.collectTimeDiv(exceptionBlock);
 
         this.yesRadioButton.addEventListener("change", (e) => this.toggleTimeDiv(e));
         this.noRadioButton.addEventListener("change", (e) => this.toggleTimeDiv(e));
@@ -34,30 +34,21 @@ export default class ExceptionsTimeSwitcher {
         }
     }
 
-    collectTimeDiv() :HTMLDivElement {
-        let divEl = document.getElementById("exception-time");
+    collectTimeDiv(exceptionBlock :HTMLDivElement) :HTMLDivElement {
+        let divEl = exceptionBlock.querySelector<HTMLInputElement>(".exception-time");
         if(divEl instanceof HTMLDivElement) {
             return divEl;
         }
         throw new Error("Time div element is not find");
     }
 
-    collectRadioButtons() :Array<HTMLInputElement> {
-        let radioButtonYes = document.getElementById("is_working_yes");
-        let radioButtonNo = document.getElementById("is_working_no");
+    collectRadioButtons(exceptionBlock : HTMLDivElement) :Array<HTMLInputElement> {
+        let radioBtns = exceptionBlock.querySelectorAll<HTMLInputElement>(`input[type=radio]`)
 
-        let returnArray = [];
-
-        if(radioButtonYes instanceof HTMLInputElement) {
-            returnArray.push(radioButtonYes);
+        if(radioBtns.length > 0) {
+            return Array.from([...radioBtns])
         }
-        else throw new Error("Radio button 'is_working_yes' is not find");
-
-        if(radioButtonNo instanceof HTMLInputElement) {
-            returnArray.push(radioButtonNo)
-        }
-        else throw new Error("Radio button 'is_working_yes' is not find")
-        return returnArray;
+        throw new Error("Radio is working inputs are not find");
     }
 
 }

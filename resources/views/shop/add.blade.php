@@ -44,7 +44,7 @@
             </div>
         </div>
         <x-shop.add-working-time/>
-        <x-shop.exceptions-working-time/>
+        <x-shop.add-exceptions-working-time/>
     </form>
     @push('pageTs')
         @vite(['resources/ts/pages/addShop.ts'])
