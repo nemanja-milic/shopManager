@@ -78,7 +78,23 @@ class WorkingTimeShopService
         })->values();
     }
 
-    public function updateExceptionTime(Shop $shop, WorkingTimeShopExceptionDTO $dataDTO) {
+    public function addExceptionTime(Shop $shop, WorkingTimeShopExceptionDTO $dataDTO)
+    {
+        $exceptions = $this->prepareExceptionData($shop, $dataDTO);
+        WorkingTimeShopException::insert($exceptions);
+
+    }
+
+    public function updateExceptionTime(Shop $shop, WorkingTimeShopExceptionDTO $dataDTO)
+    {
+        $exceptions = $this->prepareExceptionData($shop, $dataDTO);
+
+        WorkingTimeShopException::where("shop_id", $shop->id)->delete();
+        WorkingTimeShopException::insert($exceptions);
+    }
+
+    protected function prepareExceptionData(Shop $shop, WorkingTimeShopExceptionDTO $dataDTO) :array
+    {
         $exceptions = [];
 
         foreach ($dataDTO->reason as $index => $reason) {
@@ -91,9 +107,7 @@ class WorkingTimeShopService
                 "closing_time" => $dataDTO->closingTime[$index] ?? null,
             ];
         }
-
-        WorkingTimeShopException::where("shop_id", $shop->id)->delete();
-        WorkingTimeShopException::insert($exceptions);
+        return $exceptions;
     }
 
     protected function changeIsWorkingToInt(string $value) :int

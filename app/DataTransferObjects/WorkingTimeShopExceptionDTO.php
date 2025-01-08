@@ -7,7 +7,7 @@ class WorkingTimeShopExceptionDTO
     public function __construct(
         public array|string $reason,
         public array|string $date,
-        public array|int $isWorking,
+        public array|string $isWorking,
         public array|string $openingTime,
         public array|string $closingTime,
     ) {}

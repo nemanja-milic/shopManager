@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTransferObjects\ShopDeletedTDO;
 use App\DataTransferObjects\WorkingTimeShopExceptionDTO;
 use App\Enums\DaysInWeek;
 use App\Http\Requests\BasicShopRequest;
@@ -29,11 +30,9 @@ class ShopController extends Controller
         $data = $request->validated();
         $shop = Shop::create($data);
         $workingTimeForShopService->addWorkingTimeForShop($shop, $data);
-        if(isset($data["reason"])) {
-            $data["shop_id"] = $shop->id;
-            $data["is_working"] = $data["is_working"] === "false" ? 0 : 1;
-            WorkingTimeShopException::create($data);
-        }
+        $dataForExceptionTime = WorkingTimeShopExceptionDTO::fromRequest($data);
+        $workingTimeForShopService->addExceptionTime($shop, $dataForExceptionTime);
+
         return redirect()->route("shops");
     }
 
@@ -45,13 +44,14 @@ class ShopController extends Controller
 
     public function delete(Shop $shop)
     {
-        ShopDeleted::create([
-            "shop_id" => $shop->id,
-            "name" => $shop->name,
-            "country_id" => $shop->country_id,
-            "city" => $shop->city,
-            "street" => $shop->street,
-        ]);
+        $shopDeletedTDO = new ShopDeletedTDO(
+            $shop->id,
+            $shop->name,
+            $shop->country_id,
+            $shop->city,
+            $shop->street
+        );
+        ShopDeleted::create($shopDeletedTDO->toArray());
         $shop->delete();
         return redirect()->route("shops");
     }

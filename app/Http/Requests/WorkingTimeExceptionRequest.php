@@ -24,10 +24,10 @@ class WorkingTimeExceptionRequest extends FormRequest
             'is_working.*' => 'in:true,false',
 
             'opening_time' => 'nullable|array',
-            'opening_time.*' => 'nullable|date_format:H:i',
+            'opening_time.*' => 'nullable|date_format:H:i:s',
 
             'closing_time' => 'nullable|array',
-            'closing_time.*' => 'nullable|date_format:H:i',
+            'closing_time.*' => 'nullable|date_format:H:i:s',
         ];
     }
 }

@@ -1,5 +1,5 @@
-import ExceptionsTimeSwitcher from "../components/ExceptionsTimeSwitcher";
+import ExceptionsAddDelete from "../components/ExceptionsAddDelete";
 import ShopForm from "../components/ShopForm";
 
 new ShopForm();
-new ExceptionsTimeSwitcher();
+new ExceptionsAddDelete();

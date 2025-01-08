@@ -17,6 +17,8 @@ return new class extends Migration
             $table->time("opening_time")->nullable();
             $table->time("closing_time")->nullable();
             $table->timestamps();
+
+            $table->foreign("shop_id")->on("shops")->references("id")->onDelete("cascade");
         });
     }
 

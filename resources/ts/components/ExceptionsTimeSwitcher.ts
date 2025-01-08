@@ -34,12 +34,12 @@ export default class ExceptionsTimeSwitcher {
     }
 
     collectSelect(exceptionBlock : HTMLDivElement) :HTMLSelectElement {
-        let selectElement = exceptionBlock.querySelector<HTMLSelectElement>(`select`)
+        let selectElement = exceptionBlock.querySelector(`select`)
 
         if(selectElement) {
             return selectElement;
         }
-        throw new Error("Radio is working inputs are not find");
+        throw new Error("Select is working element is not find");
     }
 
 }
