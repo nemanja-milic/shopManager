@@ -20,7 +20,6 @@ class UpdateWorkingTimeRequest extends FormRequest
                     "nullable",
                     "date_format:H:i:s",
                     "required_with:{$day}_closing_time",
-                    "before:{$day}_closing_time",
                 ],
                 "{$day}_closing_time" => [
                     "nullable",

@@ -11,17 +11,10 @@ export default class ShopForm
     }
 
     submitForm() {
-        // collect all inputs
         let inputs = this.collectTimeInputs();
-        inputs.forEach(input => input.value = input.value + ":00");
+        inputs.forEach(input => input.value.length === 5 ? input.value = input.value + ":00" : false);
 
-        let collectIsWorkingInputs = this.collectIsWorkingElements();
-        let hiddenIsWorkingField = document.createElement("input");
-        hiddenIsWorkingField.name = "is_working[]";
-        hiddenIsWorkingField.value = this.generateIsWorkingField(collectIsWorkingInputs).join(",");
-        this.form.appendChild(hiddenIsWorkingField);
-
-        this.form.submit()
+        this.form.submit();
     }
 
     collectBtn() :HTMLButtonElement
@@ -31,20 +24,6 @@ export default class ShopForm
             return btn;
         }
         throw new Error("Button is not find");
-    }
-
-    generateIsWorkingField(collectIsWorkingInputs :HTMLInputElement[]) :Boolean[] {
-
-        let returnArray = [];
-        for(let i = 0; i<collectIsWorkingInputs.length; i++) {
-            if(collectIsWorkingInputs[i].checked && collectIsWorkingInputs[i].getAttribute("data-working") === "true") {
-                returnArray.push(true);
-            }
-            else if(collectIsWorkingInputs[i].checked && collectIsWorkingInputs[i].getAttribute("data-working") === "false") {
-                returnArray.push(false);
-            }
-        }
-        return returnArray
     }
 
     collectForm() :HTMLFormElement
@@ -61,21 +40,11 @@ export default class ShopForm
         const workingTimeInputs = document.querySelectorAll<HTMLInputElement>("#working_time input");
         const exceptionsTimeInputs = document.querySelectorAll<HTMLInputElement>("#exceptions input[type=time]");
 
-        if (workingTimeInputs.length > 0 && exceptionsTimeInputs.length >0) {
+        if (workingTimeInputs.length > 0 || exceptionsTimeInputs.length >0) {
             return Array.from([...workingTimeInputs, ...exceptionsTimeInputs]);
         }
 
-        throw new Error("Working Inputs or Exceptions inputs are not collected");
-    }
-
-    collectIsWorkingElements() :HTMLInputElement[] {
-
-        let collectIsWorkingInputs = document.querySelectorAll<HTMLInputElement>("#exceptions input[type=radio]");
-
-        if(collectIsWorkingInputs.length > 0) {
-            return Array.from([...collectIsWorkingInputs]);
-        }
-        throw new Error("Is working element are not find");
+        return Array.from([]);
     }
 
 }

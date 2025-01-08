@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -21,6 +22,11 @@ class WorkingTimeShopException extends Model
         return [
             'is_working' => 'boolean',
         ];
+    }
+
+    public function scopeGetExceptions(Builder $query, int $shopId) :Builder
+    {
+        return $query->where("shop_id", $shopId);
     }
 
     protected function is_working(): Attribute

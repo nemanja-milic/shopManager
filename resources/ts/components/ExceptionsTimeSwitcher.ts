@@ -1,36 +1,27 @@
 export default class ExceptionsTimeSwitcher {
 
-    protected yesRadioButton :HTMLInputElement;
-    protected noRadioButton :HTMLInputElement;
+    protected selectEl :HTMLSelectElement;
     protected timeDiv :HTMLDivElement;
 
     constructor(exceptionBlock :HTMLDivElement) {
 
-        [this.yesRadioButton, this.noRadioButton] = this.collectRadioButtons(exceptionBlock);
+        this.selectEl = this.collectSelect(exceptionBlock);
         this.timeDiv = this.collectTimeDiv(exceptionBlock);
 
-        this.yesRadioButton.addEventListener("change", (e) => this.toggleTimeDiv(e));
-        this.noRadioButton.addEventListener("change", (e) => this.toggleTimeDiv(e));
-        this.initSettings();
-    }
-
-    initSettings() {
-        if(!this.noRadioButton.checked && !this.yesRadioButton.checked) {
-            this.noRadioButton.checked = true;
-            const event = new Event("change");
-            this.noRadioButton.dispatchEvent(event);
-        }
+        this.selectEl.addEventListener("change", (e) => this.toggleTimeDiv(e));
     }
 
     toggleTimeDiv(event :Event) {
-        const target = event.target as HTMLElement;
+        const target = event.target as HTMLSelectElement;
         if (!target) throw new Error("Event target is null");
 
-        const dataWorking = target.getAttribute("data-working");
+        const dataWorking = target.value;
         if (dataWorking === "true") {
-            this.timeDiv.style.display = "flex";
+            this.timeDiv.classList.add("flex");
+            this.timeDiv.classList.remove("hidden");
         } else {
-            this.timeDiv.style.display = "none";
+            this.timeDiv.classList.remove("flex");
+            this.timeDiv.classList.add("hidden");
         }
     }
 
@@ -42,11 +33,11 @@ export default class ExceptionsTimeSwitcher {
         throw new Error("Time div element is not find");
     }
 
-    collectRadioButtons(exceptionBlock : HTMLDivElement) :Array<HTMLInputElement> {
-        let radioBtns = exceptionBlock.querySelectorAll<HTMLInputElement>(`input[type=radio]`)
+    collectSelect(exceptionBlock : HTMLDivElement) :HTMLSelectElement {
+        let selectElement = exceptionBlock.querySelector<HTMLSelectElement>(`select`)
 
-        if(radioBtns.length > 0) {
-            return Array.from([...radioBtns])
+        if(selectElement) {
+            return selectElement;
         }
         throw new Error("Radio is working inputs are not find");
     }

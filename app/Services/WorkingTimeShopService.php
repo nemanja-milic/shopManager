@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DataTransferObjects\WorkingTimeShopExceptionDTO;
 use App\Enums\DaysInWeek;
 use App\Models\Shop;
 use App\Models\WorkingTimeShop;
@@ -75,5 +76,31 @@ class WorkingTimeShopService
         return $workingTimeForShop->sortBy(function ($item) use ($dayOrder) {
             return array_search($item->day_of_week, $dayOrder);
         })->values();
+    }
+
+    public function updateExceptionTime(Shop $shop, WorkingTimeShopExceptionDTO $dataDTO) {
+        $exceptions = [];
+
+        foreach ($dataDTO->reason as $index => $reason) {
+            $exceptions[] = [
+                "shop_id" => $shop->id,
+                "reason" => $reason,
+                "date" => $dataDTO->date[$index],
+                "is_working" => $this->changeIsWorkingToInt($dataDTO->isWorking[$index]),
+                "opening_time" => $dataDTO->openingTime[$index] ?? null,
+                "closing_time" => $dataDTO->closingTime[$index] ?? null,
+            ];
+        }
+
+        WorkingTimeShopException::where("shop_id", $shop->id)->delete();
+        WorkingTimeShopException::insert($exceptions);
+    }
+
+    protected function changeIsWorkingToInt(string $value) :int
+    {
+        if($value === "true") {
+            return 1;
+        }
+        return 0;
     }
 }

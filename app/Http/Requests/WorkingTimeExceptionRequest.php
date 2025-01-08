@@ -13,20 +13,21 @@ class WorkingTimeExceptionRequest extends FormRequest
 
     public function rules(): array
     {
-        logger($this->all());
         return [
-            "reason" => ["string", "max:20"],
-            "date" => ["date"],
-            "is_working" => ["in:true,false"],
-            "opening_time" => [
-                "required_if:is_working,true",
-                "date_format:H:i:s",
-                "before:closing_time",
-            ],
-            "closing_time" => [
-                "required_if:is_working,true",
-                "date_format:H:i:s",
-            ],
+            'reason' => 'required|array',
+            'reason.*' => 'string',
+
+            'date' => 'required|array',
+            'date.*' => 'date',
+
+            'is_working' => 'required|array',
+            'is_working.*' => 'in:true,false',
+
+            'opening_time' => 'nullable|array',
+            'opening_time.*' => 'nullable|date_format:H:i',
+
+            'closing_time' => 'nullable|array',
+            'closing_time.*' => 'nullable|date_format:H:i',
         ];
     }
 }

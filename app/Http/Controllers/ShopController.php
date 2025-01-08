@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTransferObjects\WorkingTimeShopExceptionDTO;
 use App\Enums\DaysInWeek;
 use App\Http\Requests\BasicShopRequest;
 use App\Http\Requests\EditShopRequest;
@@ -28,7 +29,7 @@ class ShopController extends Controller
         $data = $request->validated();
         $shop = Shop::create($data);
         $workingTimeForShopService->addWorkingTimeForShop($shop, $data);
-        if($data["reason"]) {
+        if(isset($data["reason"])) {
             $data["shop_id"] = $shop->id;
             $data["is_working"] = $data["is_working"] === "false" ? 0 : 1;
             WorkingTimeShopException::create($data);
@@ -59,6 +60,9 @@ class ShopController extends Controller
     {
         $data = $request->validated();
 
+        $dataForExceptionTime = WorkingTimeShopExceptionDTO::fromRequest($data);
+        $workingTimeForShopService->updateExceptionTime($shop, $dataForExceptionTime);
+
         $workingTimeForShopService->addWorkingTimeForShop($shop, $data);
 
         $shop->update($request->only([
@@ -78,8 +82,8 @@ class ShopController extends Controller
         $workingTimeForShop = WorkingTimeShop::getWorkingTimeForShop($shop->id)->get();
 
         $workingTimeForShop = $workingTimeShopService->ensureAllDaysHaveWorkingTime($workingTimeForShop);
-
-        return view("shop.edit", compact("countries", "shop", "workingTimeForShop"));
+        $workingTimeExceptions = WorkingTimeShopException::getExceptions($shop->id)->get();
+        return view("shop.edit", compact("countries", "shop", "workingTimeForShop", "workingTimeExceptions"));
 
     }
 

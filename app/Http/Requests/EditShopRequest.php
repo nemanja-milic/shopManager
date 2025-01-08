@@ -15,6 +15,7 @@ class EditShopRequest extends FormRequest
     {
         return array_merge(
             (new BasicShopRequest($this->only(["name", "street", "country_id", "city"])))->rules(),
+            (new WorkingTimeExceptionRequest($this->only(["reason", "date", "is_working", "opening_time", "closing_time"])))->rules(),
             (new UpdateWorkingTimeRequest($this->only([
                 'monday_opening_time',
                 'monday_closing_time',

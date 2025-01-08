@@ -50,9 +50,7 @@
         @else
             <x-shop.edit-working-time :workingTimeForShop="$workingTimeForShop" />
         @endif
-        @if(!$workingTimeExceptions->isEmpty())
-            <x-shop.edit-exceptions-working-time :workingTimeExceptions="$workingTimeExceptions" />
-        @endif
+        <x-shop.edit-exceptions-working-time :workingTimeExceptions="$workingTimeExceptions" />
 
     </form>
     @push('pageTs')

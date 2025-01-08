@@ -5,9 +5,8 @@ export default class ExceptionsAddDelete
 
     protected mainExceptionDiv :HTMLDivElement;
     protected exceptionBlocks :HTMLDivElement[] | null;
-    protected deleteBtns :HTMLButtonElement[];
+    protected deleteBtns! :HTMLButtonElement[];
     protected addExceptionBtn :HTMLButtonElement;
-    // protected exceptionTimeSwitcher: ExceptionsTimeSwitcher;
 
     constructor() {
 
@@ -16,10 +15,8 @@ export default class ExceptionsAddDelete
         this.addExceptionBtn = this.collectBtnAddExceptionBlock();
         this.deleteBtns = this.collectBtnsForDeletingExceptionBlock();
 
-        if(this.exceptionBlocks !== null) {
-            this.exceptionBlocks?.forEach(exceptionBlock => new ExceptionsTimeSwitcher(exceptionBlock))
-            this.addEvents()
-        }
+        this.exceptionBlocks?.forEach(exceptionBlock => new ExceptionsTimeSwitcher(exceptionBlock))
+        this.addEvents();
     }
 
     protected deleteExceptionBlock(event :Event) :void {
@@ -52,28 +49,15 @@ export default class ExceptionsAddDelete
             </div>
             <div class="flex gap-3 flex-col">
                 <label class="text-sm font-medium text-gray-900 dark:text-white">Shop is working that day</label>
-                <div class="flex justify-between">
-                    <div class="flex items-center">
-                        <input
-                            data-working="true"
-                            id="is_working_yes"
-                            type="radio"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        >
-                        <label for="is_working_yes" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input
-                            id="is_working_no"
-                            data-working="false"
-                            type="radio"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        >
-                        <label for="is_working_no" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
-                    </div>
-                </div>
+                <select
+                    name="is_working[]"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Please choose yes or no</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
             </div>
-            <div class="exception-time flex items-center gap-2">
+            <div class="exception-time hidden items-center gap-2">
                 <div>
                     <label for="opening_time">Opening time</label>
                     <input
@@ -122,7 +106,7 @@ export default class ExceptionsAddDelete
         if(deleteBtns.length > 0) {
             return Array.from([...deleteBtns]);
         }
-        throw new Error("Delete buttons for deleting are not selected")
+        return Array.from([]);
     }
 
     protected collectBtnAddExceptionBlock() :HTMLButtonElement {
